@@ -5,12 +5,12 @@ require "mongoid_forums/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "mongoid-forums"
+  s.name        = "ack-mongoid-forums"
   s.version     = MongoidForums::VERSION
-  s.authors     = ["skipperguy12"]
-  s.email       = ["skipperguy12@users.noreply.github.com"]
-  s.homepage    = "http://www.njay.net/"
-  s.summary     = "Forum engine for Rails 4 and mongoid"
+  s.authors     = ["ack43", "skipperguy12"]
+  s.email       = ["i43ack@gmail.com", "skipperguy12@users.noreply.github.com"]
+  s.homepage    = "https://github.com/ack43/mongoid_forums"
+  s.summary     = "Forum engine for Rails 4 and mongoid. Forked from https://github.com/NJayDevelopment/mongoid_forums"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
