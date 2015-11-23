@@ -79,11 +79,32 @@ module MongoidForums
         redirect_to @topic and return
       end
 
-      if @post.destroy
+      # if @post.destroy
+      if @post.update_attributes(is_deleted: true)
         flash[:notice] = t("mongoid_forums.post.deleted")
         redirect_to @topic
       else
         flash[:notice] = t("mongoid_forums.post.cannot_delete")
+        redirect_to @topic
+      end
+    end
+
+    def recovery
+      find_post
+
+      authorize! :recovery_post, @topic.forum
+
+      unless @post.owner_or_admin? mongoid_forums_user
+        flash[:alert] = t("mongoid_forums.post.cannot_recover")
+        redirect_to @topic and return
+      end
+
+      # if @post.destroy
+      if @post.update_attributes(is_deleted: false)
+        flash[:notice] = t("mongoid_forums.post.recovered")
+        redirect_to @topic
+      else
+        flash[:notice] = t("mongoid_forums.post.cannot_recover")
         redirect_to @topic
       end
     end
@@ -119,6 +140,8 @@ module MongoidForums
 
     def current_resource
       @current_resource ||= Post.find(params[:id]) if params[:id]
+      @current_resource ||= Post.find(params[:post_id]) if params[:post_id]
+      @current_resource
     end
 
     def post_params

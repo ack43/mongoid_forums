@@ -2,20 +2,22 @@
 %html
   %head
     %title Forums
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = stylesheet_link_tag    'mongoid_forums', media: 'all', async: true
+    = javascript_include_tag 'mongoid_forums'
     = csrf_meta_tags
   %body
     - if mongoid_forums_user.present?
-      - @alerts.each do |al|
-        = al.mongoid_forums_topic_replier
-        replied to
-        - topic = MongoidForums::Post.find(al.mongoid_forums_topic_post_id).topic
-        = link_to topic.name, al.link
-        = time_ago_in_words(al.created_at)
-        ago
+      - unless @alerts.blank?
+        - @alerts.each do |al|
+          = al.mongoid_forums_topic_replier
+          replied to
+          - topic = MongoidForums::Post.find(al.mongoid_forums_topic_post_id).topic
+          = link_to topic.name, al.link
+          = time_ago_in_words(al.created_at)
+          ago
 
-    - flash.each do |name, msg|
-      = content_tag :p, msg if msg.is_a?(String)
+    - unless flash.blank?
+      - flash.each do |name, msg|
+        = content_tag :p, msg if msg.is_a?(String)
 
     = yield

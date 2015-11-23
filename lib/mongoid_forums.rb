@@ -7,6 +7,7 @@ require 'mongoid_forums/default_permissions'
 require 'sanitize'
 require 'haml'
 require "mongoid"
+require 'ack_rocket_cms_mongoid'
 
 module MongoidForums
   mattr_accessor :per_page, :user_class, :formatter, :email_from_address, :sign_in_path
@@ -19,15 +20,15 @@ module MongoidForums
         has_many :mongoid_forums_posts, :class_name => "MongoidForums::Post", :foreign_key => "user_id"
         has_many :mongoid_forums_topics, :class_name => "MongoidForums::Topic", :foreign_key => "user_id"
 
-        field :mongoid_admin, type: Boolean, default: false
-
-        def mongoid_forums_admin?
-          mongoid_admin
-        end unless method_defined? :mongoid_forums_admin
+        # field :mongoid_admin, type: Boolean, default: false
+        #
+        # def mongoid_forums_admin?
+        #   mongoid_admin
+        # end unless method_defined? :mongoid_forums_admin
 
         # Using +to_s+ by default for backwards compatibility
         def forum_display_name
-          to_s
+          name_or_login
         end unless method_defined? :forum_display_name
 
       end

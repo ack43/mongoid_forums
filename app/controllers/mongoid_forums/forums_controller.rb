@@ -6,7 +6,10 @@ module MongoidForums
     before_filter :authenticate_mongoid_forums_user, :only => [:create, :new]
 
     def index
-      @categories = Category.asc(:position)
+      @categories = Category.sorted
+      unless mongoid_forums_user.mongoid_forums_admin?
+        @categories = @categories.enabled
+      end
     end
 
     def show
@@ -14,6 +17,9 @@ module MongoidForums
       register_view
 
       @topics = @forum.topics
+      unless mongoid_forums_user.mongoid_forums_admin?
+        @topics = @topics.enabled
+      end
       @topics = @topics.by_pinned_or_most_recent_post.page(params[:page]).per(MongoidForums.per_page)
     end
 

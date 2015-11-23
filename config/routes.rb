@@ -50,7 +50,9 @@ MongoidForums::Engine.routes.draw do
   end
 
   resources :topics, :path => "/topics" do
-    resources :posts
+    resources :posts do
+      post :recovery
+    end
     member do
       get :subscribe
       get :unsubscribe

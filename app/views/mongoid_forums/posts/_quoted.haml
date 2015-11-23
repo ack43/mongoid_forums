@@ -6,4 +6,10 @@
   ago
   %br
   >
-  = mongoid_forums_format(reply_to.text)
+  - if !reply_to.deleted or can?(:show_deleted_post, reply_to.topic.forum)
+    - if reply_to.deleted and can?(:show_deleted_post, reply_to.topic.forum)
+      = "Deleted"
+      %br
+    = mongoid_forums_format(reply_to.text)
+  - else
+    = "Deleted"

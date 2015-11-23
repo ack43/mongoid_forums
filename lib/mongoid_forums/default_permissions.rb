@@ -47,6 +47,19 @@ module MongoidForums
         end
       end
 
+      unless method_defined?(:can_recovery_mongoid_forums_posts?)
+        def can_recovery_mongoid_forums_posts?(forum)
+          true
+        end
+      end
+
+      unless method_defined?(:can_show_deleted_mongoid_forums_posts?)
+        def can_show_deleted_mongoid_forums_posts?(forum)
+          true
+        end
+      end
+
+
       unless method_defined?(:can_read_mongoid_forums_topic?)
         def can_read_mongoid_forums_topic?(topic)
           !topic.hidden? || mongoid_forums_admin?

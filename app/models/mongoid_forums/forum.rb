@@ -1,7 +1,21 @@
 module MongoidForums
   class Forum
     include Mongoid::Document
+    include ::Mongoid::Timestamps
     include MongoidForums::Concerns::Viewable
+
+    include Enableable
+    # include Seoable
+    include SortField
+
+    include ::ManualSlug
+
+    field :name, type: String
+    manual_slug :name
+    validates :name, :presence => true
+
+    acts_as_nested_set
+    scope :sorted, -> { order_by([:lft, :asc]) }
 
     belongs_to :category, :class_name => "MongoidForums::Category"
     validates :category, :presence => true
@@ -11,13 +25,8 @@ module MongoidForums
     # Caching
     field :posts_count, :type => Integer
 
-    field :name
 
     has_and_belongs_to_many :moderator_groups, :class_name => "MongoidForums::Group", inverse_of: nil
-
-    validates :category, :name, :presence => true
-    field :position, :type => Integer, :default => 0
-    validates :position, numericality: { only_integer: true }
 
     def unread_topic_count(user)
       view = View.where(:viewable_id => id, :user_id => user.id).first
@@ -62,6 +71,16 @@ module MongoidForums
       return array
     end
 
+    rails_admin do
+      field :enabled, :toggle
+      field :name
+      field :created_at
+      field :updated_at
+      field :category
+      field :posts_count
+      field :moderator_groups
 
+      nested_set({max_depth: 1})
+    end
   end
 end

@@ -60,6 +60,9 @@ module MongoidForums
     def find_topic
       begin
         scope = @forum.topics # TODO: pending review stuff
+        unless mongoid_forums_user.mongoid_forums_admin?
+          scope = scope.enabled
+        end
         @topic = scope.find(params[:id])
         authorize! :read, @topic
       rescue Mongoid::Errors::DocumentNotFound
@@ -74,6 +77,8 @@ module MongoidForums
 
     def current_resource
       @current_resource ||= Topic.find(params[:id]) if params[:id]
+      @current_resource ||= Topic.find(params[:topic_id]) if params[:topic_id]
+      @current_resource
     end
 
     def topic_params

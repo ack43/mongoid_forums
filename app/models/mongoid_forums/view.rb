@@ -21,6 +21,15 @@ module MongoidForums
       updated_at
     end
 
+    rails_admin do
+      field :created_at
+      field :updated_at
+      field :current_viewed_at
+      field :past_viewed_at
+      field :viewable
+      field :user
+    end
+
     private
     def set_viewed_at_to_now
       self.current_viewed_at = Time.now

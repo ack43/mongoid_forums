@@ -75,6 +75,16 @@ module MongoidForums
         end
       return str
     end
+
+    rails_admin do
+      field :read, :toggle
+      field :read_at
+      field :subscription
+      field :user
+      field :mongoid_forums_topic_replier
+      field :mongoid_forums_topic_count
+      field :mongoid_forums_topic_post
+    end
   end
 
 end

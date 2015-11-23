@@ -61,5 +61,11 @@ module MongoidForums
         raise TypeError, 'This object is not subscribable!'
       end
     end
+
+    rails_admin do
+      field :unsubscribed, :toggle
+      field :subscriber
+      field :subscribable
+    end
   end
 end

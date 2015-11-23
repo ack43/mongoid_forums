@@ -10,15 +10,26 @@ ago
 = link_to 'Quote', new_topic_post_path(post.topic_id, :reply_to_id => post.id)
 - if mongoid_forums_user && post.owner_or_admin?(mongoid_forums_user)
   - if can?(:edit_post, post.topic.forum)
+    |
     = link_to "Edit", edit_topic_post_path(post.topic_id, post)
-  - if can?(:destroy_post, post.topic.forum)
-    = button_to "Delete", topic_post_path(post.topic_id, post), :method => :delete
+  - if !post.deleted and can?(:destroy_post, post.topic.forum)
+    |
+    = link_to "Delete", topic_post_path(post.topic_id, post), data: {method: :delete}
+  - if post.deleted and can?(:recovery_post, post.topic.forum)
+    |
+    = link_to "Recovery", topic_post_recovery_path(post.topic_id, post), data: {method: :post}
 
 
 %br
 - if post.reply_to_id
   = render :partial => 'mongoid_forums/posts/quoted', :locals => {:post => post}
   %br
-= mongoid_forums_format(post.text)
+- if !post.deleted or can?(:show_deleted_post, post.topic.forum)
+  - if post.deleted and can?(:show_deleted_post, post.topic.forum)
+    = "Deleted"
+    %br
+  = mongoid_forums_format(post.text)
+- else
+  = "Deleted"
 %br
 %hr

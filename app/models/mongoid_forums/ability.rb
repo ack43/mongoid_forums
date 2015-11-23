@@ -49,6 +49,14 @@ module MongoidForums
           user.can_destroy_mongoid_forums_posts?(forum)
         end
 
+        can :recovery_post, MongoidForums::Forum do |forum|
+          user.can_recovery_mongoid_forums_posts?(forum)
+        end
+
+        can :show_deleted_post, MongoidForums::Forum do |forum|
+          user.can_show_deleted_mongoid_forums_posts?(forum)
+        end
+
         can :moderate, MongoidForums::Forum do |forum|
           user.can_moderate_mongoid_forums_forum?(forum) || user.mongoid_forums_admin?
         end

@@ -23,10 +23,10 @@ class MongoidForums::ApplicationController < ApplicationController
   end
 
   def set_categories
-    @categories = MongoidForums::Category.asc(:position)
+    @categories = MongoidForums::Category.sorted
   end
 
-    def authenticate_mongoid_forums_user
+  def authenticate_mongoid_forums_user
     if !mongoid_forums_user
       session["user_return_to"] = request.fullpath
       flash.alert = t("mongoid_forums.errors.not_signed_in")

@@ -21,7 +21,7 @@
       %th
         Views
 
-    - category.forums.asc(:position).each do |forum|
+    - category.forums.sorted.each do |forum|
       %tr
         %td
           = link_to forum.name, forum

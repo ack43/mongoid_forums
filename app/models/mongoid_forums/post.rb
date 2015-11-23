@@ -3,6 +3,11 @@ module MongoidForums
     include Mongoid::Document
     include Mongoid::Timestamps
 
+    include Enableable
+
+    field :is_deleted, type: Boolean, default: false
+    alias :deleted :is_deleted
+
     after_create :set_topic_last_post_at
 
     belongs_to :topic, :class_name => "MongoidForums::Topic"
@@ -32,9 +37,19 @@ module MongoidForums
       user == other_user || (other_user.mongoid_forums_admin? || topic.forum.moderator?(other_user))
     end
 
+    rails_admin do
+      field :enabled, :toggle
+      field :is_deleted, :toggle
+      field :created_at
+      field :updated_at
+      field :topic
+      field :user
+      field :text
+    end
+
     protected
       def set_topic_last_post_at
         self.topic.update_attribute(:last_post_at, self.created_at)
       end
-    end
+  end
 end

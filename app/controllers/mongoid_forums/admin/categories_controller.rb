@@ -6,8 +6,8 @@ module MongoidForums
       before_action :set_category, only: [:add_group, :remove_group]
 
       def index
-        @forums = Forum.asc(:position)
-        @categories = Category.asc(:position)
+        @forums = Forum.sorted
+        @categories = Category.sorted
       end
 
       def show
@@ -72,7 +72,7 @@ module MongoidForums
       private
 
       def category_params
-        params.require(:category).permit(:name, :position)
+        params.require(:category).permit(:name)
       end
 
       def set_category

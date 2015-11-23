@@ -7,18 +7,18 @@ module MongoidForums
       before_action :set_user, only: [:add_admin, :remove_admin]
 
       def index
-        @admins = User.where(mongoid_admin: true)
-        @non_admins = User.where(mongoid_admin: false)
+        @admins = User.mongoid_forums_admins
+        @non_admins = User.non_mongoid_forums_admins
       end
 
       def add_admin
-        @user.mongoid_admin = true
+        @user.roles << "mongoid_forums_admin"
         @user.save
         redirect_to admin_users_path
       end
 
       def remove_admin
-        @user.mongoid_admin = false
+        @user.roles.delete "mongoid_forums_admin"
         @user.save
         redirect_to admin_users_path
       end

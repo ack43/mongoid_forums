@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Forum engine for Rails 4 and mongoid. Forked from https://github.com/NJayDevelopment/mongoid_forums"
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   s.require_paths = ['lib']
   s.test_files = Dir["test/**/*"]
 
@@ -25,6 +25,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'cancancan', '~> 1.10'
   s.add_dependency 'decorators', '1.0.2'
   s.add_dependency "haml"
+
+  s.add_dependency 'ack_rocket_cms_mongoid'
 
   s.add_development_dependency 'devise', '~> 3.4.0'
   s.add_development_dependency "jquery-rails"

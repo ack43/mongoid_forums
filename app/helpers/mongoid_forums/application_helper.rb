@@ -3,6 +3,10 @@ module MongoidForums
     include FormattingHelper
     # processes text with installed markup formatter
     def mongoid_forums_format(text, *options)
+      text = text.gsub(URI::regexp){ |url|
+        url = Addressable::URI.parse(url).normalize
+        "<a href='#{url}'>#{url.display_uri}</a>"
+      }.html_safe
       as_formatted_html(text)
     end
 
