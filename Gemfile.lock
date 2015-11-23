@@ -1,7 +1,8 @@
 PATH
   remote: .
   specs:
-    ack-mongoid-forums (1.0.5)
+    ack-mongoid-forums (1.0.6)
+      ack_rocket_cms
       cancancan (~> 1.10)
       decorators (= 1.0.2)
       haml
@@ -14,6 +15,35 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    ack_rails_admin_jcrop (0.0.6)
+      mini_magick
+      rails (>= 3.0.0)
+      rails_admin (>= 0.3.0)
+    ack_rocket_cms (0.9.1.3)
+      ack_rails_admin_jcrop
+      addressable
+      ckeditor
+      coffee-rails
+      devise
+      geocoder
+      glebtv-simple_captcha
+      jquery-rails
+      kaminari
+      rails (>= 4.1.0, < 5.0)
+      rails_admin
+      rails_admin_mongoid_localize_field (~> 0.1.2)
+      rails_admin_nested_set
+      rails_admin_settings
+      rails_admin_toggleable
+      simple-navigation
+      simple_form
+      sitemap_generator
+      smart_excerpt
+      stringex
+      thor
+      turbolinks
+      validates_email_format_of
+      x-real-ip
     actionmailer (4.2.5)
       actionpack (= 4.2.5)
       actionview (= 4.2.5)
@@ -49,12 +79,27 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    addressable (2.3.8)
     arel (6.0.3)
     bcrypt (3.1.10)
     bson (3.2.6)
     builder (3.2.2)
     cancancan (1.13.1)
+    ckeditor (4.1.5)
+      cocaine
+      orm_adapter (~> 0.5.0)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.8)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
+    coffee-rails (4.1.0)
+      coffee-script (>= 2.2.0)
+      railties (>= 4.0.0, < 5.0)
+    coffee-script (2.4.1)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.10.0)
     connection_pool (2.2.0)
     decorators (1.0.2)
       railties (>= 3.0.19, != 3.2.9, != 3.2.8, != 3.2.7, != 3.2.6, != 3.2.5, != 3.2.4, != 3.2.3, != 3.2.2, != 3.2.10, != 3.2.1, != 3.2.0, != 3.1.9, != 3.1.8, != 3.1.7, != 3.1.6, != 3.1.5, != 3.1.4, != 3.1.3, != 3.1.2, != 3.1.1, != 3.1.0)
@@ -66,15 +111,23 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     erubis (2.7.0)
+    execjs (2.6.0)
+    font-awesome-rails (4.4.0.0)
+      railties (>= 3.2, < 5.0)
+    geocoder (1.2.12)
+    glebtv-simple_captcha (0.6.7)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     haml (4.0.7)
       tilt
+    htmlentities (4.3.4)
     i18n (0.7.0)
     jquery-rails (4.0.5)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
+    jquery-ui-rails (5.0.5)
+      railties (>= 3.2.16)
     json (1.8.3)
     kaminari (0.15.1)
       actionpack (>= 3.0.0)
@@ -84,9 +137,10 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
-    mime-types (2.6.2)
+    mime-types (2.99)
+    mini_magick (4.3.6)
     mini_portile (0.6.2)
-    minitest (5.8.2)
+    minitest (5.8.3)
     mongoid (4.0.0)
       activemodel (~> 4.0)
       moped (~> 2.0.0)
@@ -96,7 +150,8 @@ GEM
       bson (~> 3.0)
       connection_pool (~> 2.0)
       optionable (~> 0.2.0)
-    nokogiri (1.6.6.2)
+    nested_form (0.3.2)
+    nokogiri (1.6.6.4)
       mini_portile (~> 0.6.0)
     optionable (0.2.0)
     origin (2.1.1)
@@ -108,6 +163,9 @@ GEM
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     rack (1.6.4)
+    rack-pjax (0.8.0)
+      nokogiri (~> 1.5)
+      rack (~> 1.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.5)
@@ -129,33 +187,81 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
+    rails_admin (0.8.0)
+      builder (~> 3.1)
+      coffee-rails (~> 4.0)
+      font-awesome-rails (>= 3.0, < 5)
+      haml (~> 4.0)
+      jquery-rails (>= 3.0, < 5)
+      jquery-ui-rails (~> 5.0)
+      kaminari (~> 0.14)
+      nested_form (~> 0.3)
+      rack-pjax (~> 0.7)
+      rails (~> 4.0)
+      remotipart (~> 1.0)
+      safe_yaml (~> 1.0)
+      sass-rails (>= 4.0, < 6)
+    rails_admin_mongoid_localize_field (0.1.3)
+      haml
+      mongoid (>= 3.0)
+      rails (>= 3.0)
+      rails_admin (>= 0.5)
+    rails_admin_nested_set (0.4.5)
+      rails_admin
+    rails_admin_settings (1.0.1)
+    rails_admin_toggleable (0.5.1)
+      rails_admin
     railties (4.2.5)
       actionpack (= 4.2.5)
       activesupport (= 4.2.5)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
+    remotipart (1.2.1)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    safe_yaml (1.0.4)
     sanitize (2.0.6)
       nokogiri (>= 1.4.4)
+    sass (3.4.19)
+    sass-rails (5.0.4)
+      railties (>= 4.0.0, < 5.0)
+      sass (~> 3.1)
+      sprockets (>= 2.8, < 4.0)
+      sprockets-rails (>= 2.0, < 4.0)
+      tilt (>= 1.1, < 3)
+    simple-navigation (4.0.3)
+      activesupport (>= 2.3.2)
     simple_form (3.2.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
+    sitemap_generator (5.1.0)
+      builder
     slop (3.6.0)
+    smart_excerpt (0.1.5)
+      activesupport
+      htmlentities
     sprockets (3.4.0)
       rack (> 1, < 3)
     sprockets-rails (2.3.3)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
+    stringex (2.5.2)
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.1)
+    turbolinks (2.5.3)
+      coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    validates_email_format_of (1.6.3)
+      i18n
     warden (1.2.3)
       rack (>= 1.0)
+    x-real-ip (0.2.1)
+      activesupport
+      rack
 
 PLATFORMS
   ruby

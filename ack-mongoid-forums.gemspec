@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'decorators', '1.0.2'
   s.add_dependency "haml"
 
-  s.add_dependency 'ack_rocket_cms_mongoid'
+  s.add_dependency 'ack_rocket_cms'
 
   s.add_development_dependency 'devise', '~> 3.4.0'
   s.add_development_dependency "jquery-rails"
