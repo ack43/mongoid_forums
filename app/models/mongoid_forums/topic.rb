@@ -36,8 +36,8 @@ module MongoidForums
     validates :name, :presence => true, :length => { maximum: 255 }
     validates :user, :presence => true
 
-    scope :by_most_recent_post,           order_by([:last_post_at, :desc])
-    scope :by_pinned_or_most_recent_post, order_by([:pinned, :desc], [:last_post_at, :desc])
+    scope :by_most_recent_post,           -> { order_by([:last_post_at, :desc]) }
+    scope :by_pinned_or_most_recent_post, -> { order_by([:pinned, :desc], [:last_post_at, :desc]) }
 
     def can_be_replied_to?
       !locked?
